@@ -8,6 +8,8 @@ using namespace sf;
 int main()
 {
 
+	//Komentarz
+
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
 	sf::RectangleShape basicSquare;
 
