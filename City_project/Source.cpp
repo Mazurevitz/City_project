@@ -9,6 +9,7 @@ int main()
 {
 
 	//Komentarz
+	//pa jak zmieniam
 
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
 	sf::RectangleShape basicSquare;
