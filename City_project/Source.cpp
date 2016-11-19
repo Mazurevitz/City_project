@@ -5,20 +5,34 @@ using namespace sf;
 
 #define BLOCKSIZE 50
 
+
+
+class BasicSquare
+{
+public:
+	sf::RectangleShape basicSquare;
+
+	BasicSquare() {
+		basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
+		basicSquare.setOutlineColor(sf::Color::Magenta);
+		basicSquare.setFillColor(sf::Color::Black);
+		basicSquare.setOutlineThickness(3);
+	}
+
+	void setIt()
+	{
+		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition()));
+	}
+
+};
+
 int main()
 {
-
+	BasicSquare square;
 	//Komentarz
 	//pa jak zmieniam
 
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
-	sf::RectangleShape basicSquare;
-
-	basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
-	basicSquare.setOutlineColor(sf::Color::Magenta);
-	basicSquare.setFillColor(sf::Color::Black);
-	basicSquare.setOutlineThickness(3);
-	Vector2f halfOfBlock = basicSquare.getSize();
 
 	Vector2i localMousePosition = Mouse::getPosition(window);
 
@@ -35,10 +49,9 @@ int main()
 		window.clear();
 
 
-		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
 
 
-		window.draw(basicSquare);
+		window.draw(square.basicSquare);
 		window.display();
 	}
 
