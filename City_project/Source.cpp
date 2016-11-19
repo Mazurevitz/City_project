@@ -1,13 +1,23 @@
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+using namespace sf;
+
+#define BLOCKSIZE 50
+
 int main()
 {
 
 	// Komentarz testowy 
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+	sf::RectangleShape basicSquare;
+
+	basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
+	basicSquare.setOutlineColor(sf::Color::Magenta);
+	basicSquare.setFillColor(sf::Color::Black);
+	basicSquare.setOutlineThickness(3);
+
 
 	while (window.isOpen())
 	{
@@ -19,7 +29,12 @@ int main()
 		}
 
 		window.clear();
-		window.draw(shape);
+
+
+		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition()));
+
+
+		window.draw(basicSquare);
 		window.display();
 	}
 
