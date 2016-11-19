@@ -16,6 +16,7 @@ public:
 		rectangle.setFillColor(Color::Green);
 
 	}
+	
 private:
 	
 };
