@@ -10,7 +10,8 @@ int main()
 
 	// Komentarz testowy 
 	// Komentarz testowy#2
-	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
+	//dfmgkdfgkdfgdfkgdg
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	sf::RectangleShape basicSquare;
 
 	basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
