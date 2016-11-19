@@ -28,7 +28,7 @@ int main()
 	GeneratePanel panel;
 	
 	while (window.isOpen()) {
-
+		
 		Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed) {
@@ -36,10 +36,10 @@ int main()
 			}
 		}
 
-		window.clear();
-
 		window.draw(panel.rectangle);
 		window.display();
+		window.clear();
+		
 	}
 
 	
