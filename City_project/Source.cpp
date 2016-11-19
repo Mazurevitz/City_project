@@ -9,7 +9,7 @@ int main()
 {
 
 	// Komentarz testowy 
-
+	// Komentarz testowy#2
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
 	sf::RectangleShape basicSquare;
 
