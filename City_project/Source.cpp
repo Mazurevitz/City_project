@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Source.h"
 
 using namespace std;
 using namespace sf;
@@ -7,7 +8,7 @@ using namespace sf;
 
 
 
-class BasicSquare
+class BasicSquare : public Drawable
 {
 public:
 	sf::RectangleShape basicSquare;
@@ -47,9 +48,6 @@ int main()
 		}
 
 		window.clear();
-
-
-
 
 		window.draw(square.basicSquare);
 		window.display();
