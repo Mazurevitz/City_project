@@ -10,13 +10,16 @@ int main()
 
 	// Komentarz testowy 
 
-	sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
 	sf::RectangleShape basicSquare;
 
 	basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
 	basicSquare.setOutlineColor(sf::Color::Magenta);
 	basicSquare.setFillColor(sf::Color::Black);
 	basicSquare.setOutlineThickness(3);
+	Vector2f halfOfBlock = basicSquare.getSize();
+
+	Vector2i localMousePosition = Mouse::getPosition(window);
 
 
 	while (window.isOpen())
@@ -31,7 +34,7 @@ int main()
 		window.clear();
 
 
-		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition()));
+		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
 
 
 		window.draw(basicSquare);
