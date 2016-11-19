@@ -3,44 +3,46 @@
 using namespace std;
 using namespace sf;
 
-#define BLOCKSIZE 50
+
+class GeneratePanel
+{
+public:
+	RectangleShape rectangle;
+	GeneratePanel() {
+		
+		RectangleShape rectangle(Vector2f(0, 0));
+		rectangle.setSize(Vector2f(250, 600));
+		rectangle.setPosition(Vector2f(0, 0));
+		rectangle.setFillColor(Color::Green);
+
+	}
+private:
+	
+};
 
 int main()
 {
+	
+	RenderWindow window(sf::VideoMode(1320, 600), "SFML works!");
+	
+	GeneratePanel panel;
+	
+	while (window.isOpen()) {
 
-	// Komentarz testowy 
-	// Komentarz testowy#2
-	//dfmgkdfgkdfgdfkgdg
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-	sf::RectangleShape basicSquare;
-
-	basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
-	basicSquare.setOutlineColor(sf::Color::Magenta);
-	basicSquare.setFillColor(sf::Color::Black);
-	basicSquare.setOutlineThickness(3);
-	Vector2f halfOfBlock = basicSquare.getSize();
-
-	Vector2i localMousePosition = Mouse::getPosition(window);
-
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
 				window.close();
+			}
 		}
 
 		window.clear();
 
-
-		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
-
-
-		window.draw(basicSquare);
+		window.draw(panel.rectangle);
 		window.display();
 	}
+
+	
 
 	return 0;
 }
