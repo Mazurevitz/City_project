@@ -13,6 +13,9 @@ public:
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
+	void useHouse_1() {
+		rectangle.setFillColor(Color::White);
+	}
 
 
 private:
@@ -40,6 +43,10 @@ int main()
 		
 		window.draw(menu.rectangle);
 		window.draw(menu.house_1);
+
+		Vector2i mousePosition = Mouse::getPosition(window);
+		
+
 		window.display();
 		window.clear();
 		
@@ -58,6 +65,8 @@ void GeneratePanel::getLeftMenu()
 }
 void GeneratePanel::getHouse_1() 
 {
+	int x = 15;
+	int y = 15;
 	house_1.setSize(Vector2f(50, 50));
 	house_1.setPosition(Vector2f(15, 15));
 	house_1.setFillColor(Color::Red);
