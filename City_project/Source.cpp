@@ -6,6 +6,9 @@ using namespace std;
 using namespace sf;
 
 
+
+
+
 class GeneratePanel
 {
 public:
@@ -28,7 +31,7 @@ int main()
 
 	RectangleShape highlightSquare;
 
-	highlightSquare.setFillColor(Color::Black);
+	highlightSquare.setFillColor(Color::Transparent);
 	highlightSquare.setOutlineColor(Color::Magenta);
 	highlightSquare.setOutlineThickness(3);
 	highlightSquare.setSize(Vector2f(50,50));
