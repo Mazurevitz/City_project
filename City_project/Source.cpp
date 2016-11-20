@@ -82,15 +82,12 @@ private:
 
 int main()
 {
-
 	RenderWindow window(VideoMode(1320, 600), "SFML works!");
 	RenderWindow *window_ = &window;
 	GeneratePanel menu;
 	MyMouse mouse(window, 16, 16);
 	menu.getLeftMenu();
 	menu.getHouse_1();
-
-
 
 
 
