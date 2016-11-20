@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -13,21 +14,74 @@ public:
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
-	void useHouse_1() {
-		rectangle.setFillColor(Color::White);
-	}
-
+	void useHouse_1();
 
 private:
 	
 };
+void GeneratePanel::getLeftMenu()
+{
+	rectangle.setSize(Vector2f(250, 600));
+	rectangle.setPosition(Vector2f(0, 0));
+	rectangle.setFillColor(Color::Green);
+}
+void GeneratePanel::getHouse_1()
+{
+
+	house_1.setSize(Vector2f(50, 50));
+	house_1.setPosition(Vector2f(15, 15));
+	house_1.setFillColor(Color::Red);
+}
+
+void GeneratePanel::useHouse_1() {
+
+		RectangleShape house_1used;
+		house_1.setPosition(Vector2f(50, 50));
+		house_1used.setSize(Vector2f(50, 50));
+		house_1used.setFillColor(Color::Yellow);
+		cout << "kliklem";
+
+}
+class MyMouse {
+
+public:
+	MyMouse(const Window& _window, float mouse_width, float mouse_height) :
+		window(_window)
+	{
+		//initialize box
+		mouse_box.width = mouse_width;
+		mouse_box.height = mouse_height;
+	}
+
+	Vector2i getPosition(const Window &relativeTo) {
+		return Mouse::getPosition(relativeTo);
+	}
+
+	//WRAP THE REST OF sf::Mouse FUNCTIONS
+
+	bool intersects(FloatRect& other_box) {
+
+		//update before comparing
+		mouse_box.left = Mouse::getPosition(window).x;
+		mouse_box.top = Mouse::getPosition(window).y;
+
+		return mouse_box.intersects(other_box);
+	}
+
+private:
+	const Window& window;
+	FloatRect mouse_box;
+};
+
 
 int main()
 {
 	
 	RenderWindow window(sf::VideoMode(1320, 600), "SFML works!");
 	GeneratePanel menu;
-	
+	MyMouse mouse(window, 16, 16);
+	menu.getLeftMenu();
+	menu.getHouse_1();
 	
 	while (window.isOpen()) {
 		
@@ -38,16 +92,37 @@ int main()
 			}
 		}
 		//set values for LeftPanel and House_1
-		menu.getLeftMenu();
-		menu.getHouse_1();
 		
 		window.draw(menu.rectangle);
 		window.draw(menu.house_1);
-
-		Vector2i mousePosition = Mouse::getPosition(window);
 		
+		Vector2i mousePosition = Mouse::getPosition(window);
 
+
+		if(mouse.intersects(menu.house_1.getGlobalBounds())) {
+			menu.house_1.setFillColor(Color::White);
+			
+			if (event.type == Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					menu.house_1.setFillColor(Color::Yellow);
+				}
+			}
+		}
+		else {
+			menu.house_1.setFillColor(Color::Red);
+		}
+		
+		
+		
+		
+		//cout << "Koordynaty" << mousePosition.x<<mousePosition.y;
+		//int temp;
+		
 		window.display();
+		
+		//cin >> temp;
 		window.clear();
 		
 	}
@@ -57,18 +132,5 @@ int main()
 	return 0;
 }
 
-void GeneratePanel::getLeftMenu()
-{
-	rectangle.setSize(Vector2f(250, 600));
-	rectangle.setPosition(Vector2f(0, 0));
-	rectangle.setFillColor(Color::Green);
-}
-void GeneratePanel::getHouse_1() 
-{
-	int x = 15;
-	int y = 15;
-	house_1.setSize(Vector2f(50, 50));
-	house_1.setPosition(Vector2f(15, 15));
-	house_1.setFillColor(Color::Red);
-}
+
 
