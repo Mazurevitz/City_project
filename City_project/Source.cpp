@@ -15,7 +15,7 @@ public:
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
-	void useHouse_1();
+	void buyHouse_1();
 
 private:
 	
@@ -34,7 +34,7 @@ void GeneratePanel::getHouse_1()
 	house_1.setFillColor(Color::Red);
 }
 
-void GeneratePanel::useHouse_1() {
+void GeneratePanel::buyHouse_1() {
 
 		
 
@@ -42,6 +42,8 @@ void GeneratePanel::useHouse_1() {
 		house_1used.setOutlineColor(Color::Magenta);
 		house_1used.setOutlineThickness(3);
 		house_1used.setSize(Vector2f(50, 50));
+		
+		Vector2f highlightPostion = house_1used.getPosition();
 
 		
 
@@ -81,7 +83,8 @@ private:
 int main()
 {
 	
-	RenderWindow window(sf::VideoMode(1320, 600), "SFML works!");
+	RenderWindow window(VideoMode(1320, 600), "SFML works!");
+	RenderWindow *window_ = &window;
 	GeneratePanel menu;
 	MyMouse mouse(window, 16, 16);
 	menu.getLeftMenu();
@@ -99,28 +102,24 @@ int main()
 				window.close();
 			}
 		}
+		
 		//set values for LeftPanel and House_1
 		
 		window.draw(menu.rectangle);
 		window.draw(menu.house_1);
+		window.draw(menu.house_1used);
 		
 		Vector2i mousePosition = Mouse::getPosition(window);
 
 
-		if(mouse.intersects(menu.house_1.getGlobalBounds())) {
-			menu.house_1.setFillColor(Color::White);
-			
-			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-			{
-				
-				menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
-				Vector2f highlightPostion = menu.house_1used.getPosition();
-				
-			}
+		if (mouse.intersects(menu.house_1.getGlobalBounds()) && 
+			event.type == Event::MouseButtonPressed 
+			&& event.mouseButton.button == Mouse::Left) {
+			menu.buyHouse_1();
+			menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
+		
 		}
-		else {
-			menu.house_1.setFillColor(Color::Red);
-		}
+		menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
 		
 		
 		
