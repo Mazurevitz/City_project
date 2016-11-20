@@ -11,6 +11,7 @@ class GeneratePanel
 public:
 	RectangleShape rectangle;
 	RectangleShape house_1;
+	RectangleShape house_1used;
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
@@ -35,11 +36,14 @@ void GeneratePanel::getHouse_1()
 
 void GeneratePanel::useHouse_1() {
 
-		RectangleShape house_1used;
-		house_1.setPosition(Vector2f(50, 50));
+		
+
+		house_1used.setFillColor(Color::Black);
+		house_1used.setOutlineColor(Color::Magenta);
+		house_1used.setOutlineThickness(3);
 		house_1used.setSize(Vector2f(50, 50));
-		house_1used.setFillColor(Color::Yellow);
-		cout << "kliklem";
+
+		
 
 }
 class MyMouse {
@@ -82,6 +86,10 @@ int main()
 	MyMouse mouse(window, 16, 16);
 	menu.getLeftMenu();
 	menu.getHouse_1();
+
+	
+
+	
 	
 	while (window.isOpen()) {
 		
@@ -102,12 +110,12 @@ int main()
 		if(mouse.intersects(menu.house_1.getGlobalBounds())) {
 			menu.house_1.setFillColor(Color::White);
 			
-			if (event.type == Event::MouseButtonPressed)
+			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
 			{
-				if (event.mouseButton.button == Mouse::Left)
-				{
-					menu.house_1.setFillColor(Color::Yellow);
-				}
+				
+				menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
+				Vector2f highlightPostion = menu.house_1used.getPosition();
+				
 			}
 		}
 		else {
