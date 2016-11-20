@@ -1,57 +1,78 @@
 #include <SFML/Graphics.hpp>
-#include "Source.h"
+#include <vector>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
 
-#define BLOCKSIZE 50
 
-
-
-class BasicSquare : public Drawable
+class GeneratePanel
 {
 public:
-	sf::RectangleShape basicSquare;
+	RectangleShape rectangle;
+	RectangleShape house_1;
+	GeneratePanel() {}
+	void getLeftMenu();
+	void getHouse_1();
 
-	BasicSquare() {
-		basicSquare.setSize(sf::Vector2f(BLOCKSIZE, BLOCKSIZE));
-		basicSquare.setOutlineColor(sf::Color::Magenta);
-		basicSquare.setFillColor(sf::Color::Black);
-		basicSquare.setOutlineThickness(3);
-	}
 
-	void setIt()
-	{
-		basicSquare.setPosition(sf::Vector2f(sf::Mouse::getPosition()));
-	}
+private:
 
 };
 
 int main()
 {
-	BasicSquare square;
-	//Komentarz
-	//pa jak zmieniam
 
-	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
+	RenderWindow window(sf::VideoMode(1320, 600), "SFML works!");
+	GeneratePanel menu;
 
-	Vector2i localMousePosition = Mouse::getPosition(window);
+	RectangleShape highlightSquare;
 
+	highlightSquare.setFillColor(Color::Black);
+	highlightSquare.setOutlineColor(Color::Magenta);
+	highlightSquare.setOutlineThickness(3);
+	highlightSquare.setSize(Vector2f(50,50));
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
+	while (window.isOpen()) {
+
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
 				window.close();
+			}
 		}
+		//set values for LeftPanel and House_1
+		menu.getLeftMenu();
+		menu.getHouse_1();
 
-		window.clear();
+		highlightSquare.setPosition(Vector2f(Mouse::getPosition(window)));
+		Vector2f highlightPostion = highlightSquare.getPosition();
 
-		window.draw(square.basicSquare);
+		cout << "Highlight X: " << highlightPostion.x << "| Y: " << highlightPostion.y << endl;
+
+		window.draw(menu.rectangle);
+		window.draw(menu.house_1);
+		window.draw(highlightSquare);
+
 		window.display();
+		window.clear();
 	}
+
+
 
 	return 0;
 }
+
+void GeneratePanel::getLeftMenu()
+{
+	rectangle.setSize(Vector2f(250, 600));
+	rectangle.setPosition(Vector2f(0, 0));
+	rectangle.setFillColor(Color::Green);
+}
+void GeneratePanel::getHouse_1()
+{
+	house_1.setSize(Vector2f(50, 50));
+	house_1.setPosition(Vector2f(15, 15));
+	house_1.setFillColor(Color::Red);
+}
+
