@@ -6,35 +6,93 @@ using namespace std;
 using namespace sf;
 
 
-
-
-
 class GeneratePanel
 {
 public:
 	RectangleShape rectangle;
 	RectangleShape house_1;
+	RectangleShape house_1used;
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
-
+	void buyHouse_1();
 
 private:
 
 };
+void GeneratePanel::getLeftMenu()
+{
+	rectangle.setSize(Vector2f(250, 600));
+	rectangle.setPosition(Vector2f(0, 0));
+	rectangle.setFillColor(Color::Green);
+}
+void GeneratePanel::getHouse_1()
+{
+
+	house_1.setSize(Vector2f(50, 50));
+	house_1.setPosition(Vector2f(15, 15));
+	house_1.setFillColor(Color::Red);
+}
+
+void GeneratePanel::buyHouse_1() {
+
+
+
+	house_1used.setFillColor(Color::Black);
+	house_1used.setOutlineColor(Color::Magenta);
+	house_1used.setOutlineThickness(3);
+	house_1used.setSize(Vector2f(50, 50));
+
+	Vector2f highlightPostion = house_1used.getPosition();
+
+
+
+}
+class MyMouse {
+
+public:
+	MyMouse(const Window& _window, float mouse_width, float mouse_height) :
+		window(_window)
+	{
+		//initialize box
+		mouse_box.width = mouse_width;
+		mouse_box.height = mouse_height;
+	}
+
+	Vector2i getPosition(const Window &relativeTo) {
+		return Mouse::getPosition(relativeTo);
+	}
+
+	//WRAP THE REST OF sf::Mouse FUNCTIONS
+
+	bool intersects(FloatRect& other_box) {
+
+		//update before comparing
+		mouse_box.left = Mouse::getPosition(window).x;
+		mouse_box.top = Mouse::getPosition(window).y;
+
+		return mouse_box.intersects(other_box);
+	}
+
+private:
+	const Window& window;
+	FloatRect mouse_box;
+};
+
 
 int main()
 {
 
-	RenderWindow window(sf::VideoMode(1320, 600), "SFML works!");
+	RenderWindow window(VideoMode(1320, 600), "SFML works!");
+	RenderWindow *window_ = &window;
 	GeneratePanel menu;
+	MyMouse mouse(window, 16, 16);
+	menu.getLeftMenu();
+	menu.getHouse_1();
 
-	RectangleShape highlightSquare;
 
-	highlightSquare.setFillColor(Color::Transparent);
-	highlightSquare.setOutlineColor(Color::Magenta);
-	highlightSquare.setOutlineThickness(3);
-	highlightSquare.setSize(Vector2f(50,50));
+
+
 
 	while (window.isOpen()) {
 
@@ -44,21 +102,36 @@ int main()
 				window.close();
 			}
 		}
+
 		//set values for LeftPanel and House_1
-		menu.getLeftMenu();
-		menu.getHouse_1();
-
-		highlightSquare.setPosition(Vector2f(Mouse::getPosition(window)));
-		Vector2f highlightPostion = highlightSquare.getPosition();
-
-		cout << "Highlight X: " << highlightPostion.x << "| Y: " << highlightPostion.y << endl;
 
 		window.draw(menu.rectangle);
 		window.draw(menu.house_1);
-		window.draw(highlightSquare);
+		window.draw(menu.house_1used);
+
+		Vector2i mousePosition = Mouse::getPosition(window);
+
+
+		if (mouse.intersects(menu.house_1.getGlobalBounds()) &&
+			event.type == Event::MouseButtonPressed
+			&& event.mouseButton.button == Mouse::Left) {
+			menu.buyHouse_1();
+			menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
+
+		}
+		menu.house_1used.setPosition(Vector2f(Mouse::getPosition(window)));
+
+
+
+
+		//cout << "Koordynaty" << mousePosition.x<<mousePosition.y;
+		//int temp;
 
 		window.display();
+
+		//cin >> temp;
 		window.clear();
+
 	}
 
 
@@ -66,16 +139,5 @@ int main()
 	return 0;
 }
 
-void GeneratePanel::getLeftMenu()
-{
-	rectangle.setSize(Vector2f(250, 600));
-	rectangle.setPosition(Vector2f(0, 0));
-	rectangle.setFillColor(Color::Green);
-}
-void GeneratePanel::getHouse_1()
-{
-	house_1.setSize(Vector2f(50, 50));
-	house_1.setPosition(Vector2f(15, 15));
-	house_1.setFillColor(Color::Red);
-}
+
 
