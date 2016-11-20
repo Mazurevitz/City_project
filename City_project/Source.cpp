@@ -12,10 +12,12 @@ public:
 	RectangleShape rectangle;
 	RectangleShape house_1;
 	RectangleShape house_1used;
+	
 	GeneratePanel() {}
 	void getLeftMenu();
 	void getHouse_1();
 	void buyHouse_1();
+	void createMap();
 
 private:
 	
@@ -33,7 +35,6 @@ void GeneratePanel::getHouse_1()
 	house_1.setPosition(Vector2f(15, 15));
 	house_1.setFillColor(Color::Red);
 }
-
 void GeneratePanel::buyHouse_1() {
 
 		
@@ -47,6 +48,12 @@ void GeneratePanel::buyHouse_1() {
 
 		
 
+}
+void GeneratePanel::createMap()
+{
+	
+
+	
 }
 class MyMouse {
 
@@ -84,15 +91,23 @@ int main()
 {
 	
 	RenderWindow window(VideoMode(1320, 600), "SFML works!");
-	RenderWindow *window_ = &window;
+	
 	GeneratePanel menu;
 	MyMouse mouse(window, 16, 16);
 	menu.getLeftMenu();
 	menu.getHouse_1();
 
 	
-
-	
+	RectangleShape mapSquare;
+	mapSquare.setFillColor(Color::Blue);
+	mapSquare.setSize(Vector2f(10, 10));
+	for (int y = 0; y <= 600; y + 10) {
+		for (int x = 250; x <= 1320; x + 10) {
+			window.draw(mapSquare);
+			mapSquare.setPosition(Vector2f(x, y));
+			
+		}
+	}
 	
 	while (window.isOpen()) {
 		
@@ -109,9 +124,12 @@ int main()
 		window.draw(menu.house_1);
 		window.draw(menu.house_1used);
 		
+		
+		
+		
 		Vector2i mousePosition = Mouse::getPosition(window);
 
-
+		
 		if (mouse.intersects(menu.house_1.getGlobalBounds()) && 
 			event.type == Event::MouseButtonPressed 
 			&& event.mouseButton.button == Mouse::Left) {
